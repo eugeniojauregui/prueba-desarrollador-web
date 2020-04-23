@@ -16,6 +16,7 @@ body {
   justify-content: center;
   margin-bottom: 22px;
 }
+
 .row.last {
   margin-left: -110px;
 }
@@ -33,19 +34,36 @@ body {
   transition: all ease 0.5s;
   user-select: none;
 }
+
 .key.active {
   background-color: #fff;
   color: black;
 }
+
 .key.active.success {
   background-color: #2ecc71;
   color: #fff;
   border-color: #2ecc71;
 }
+
 .key.active.fail {
   background-color: #e74c3c;
   color: #fff;
   border-color: #e74c3c;
+}
+
+.start {
+  animation: appear 1s infinite;
+  width: 99vw;
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  height: 60px;
+  font-size: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Monserrat", sans-serif;
 }
 
 @keyframes appear {
@@ -53,9 +71,9 @@ body {
     color: #000;
     border-color: #000;
   }
+
   100% {
     color: #fff;
     boder-color: #fff;
   }
 }
-
