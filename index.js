@@ -1,19 +1,16 @@
 //Desarrollo del test - Books & Books - Eugenio Jáuregui
 var reset = document.getElementById('link-reset'),
     steps = document.getElementById('score'),
-    play = document.getElementById('play'),
+    play = document.getElementById('play');
 
 
 function simonSay() {
     console.log('Juego iniciado');
     sessionStorage.setItem('playing', 'true');
     getKeyScreen = document.querySelectorAll('.key');
-    steps = document.getElementById('score'),
+    steps = document.getElementById('score');
     startMessage = document.getElementById('Start');
     startMessage.style.display = 'none';
-
-    // let playerTurn = false;
-
 
     function Game() {
         this.playerTurn = false;
@@ -24,7 +21,6 @@ function simonSay() {
     this.newGame = function () {
         game = new Game();
         steps.innerHTML = "01";
-        // setTimeout(fadeIntro, 250);
         setTimeout(newRound, 500);
     }
 
@@ -52,15 +48,14 @@ function simonSay() {
     function newRound() {
         round = new Round();
         showPattern();
-        console.log(round.pattern); // HINT
+        console.log(round.pattern);
     }
 
     function showPattern() {
         game.playerTurn = false;
         play.innerHTML = '<i class="fa fa-circle"></i>';
         for (var x = 0; x < round.patternLength; x++) {
-            // highligthKey(round.pattern[x]);
-            setTimeout(highligthKey.bind(null, round.pattern[x],500), round.speed * x);
+            setTimeout(highligthKey.bind(null, round.pattern[x], 500), round.speed * x);
         }
         setTimeout(function () {
             game.playerTurn = true;
@@ -82,7 +77,7 @@ function simonSay() {
             round.counter++;
             console.log('va bien');
             console.log(round.counter);
-            console.log(round.patternLength);
+            console.log(round.pattern);
             if (round.counter === round.patternLength) {
                 game.playerTurn = false;
                 game.steps++;
@@ -122,12 +117,11 @@ function simonSay() {
 
     function pressKey() {
         const keyName = event.keyCode;
-
         for (let index = 0; index < getKeyScreen.length; index++) {
             const element = getKeyScreen[index];
             if (element.dataset.key == keyName) {
                 element.classList.add("active");
-                if (element.dataset.key == keyName) {
+                if (element.dataset.key == parseInt(round.pattern[round.counter])) {
                     element.classList.add("success");
                     setTimeout(function () {
                         element.classList.remove("success");
