@@ -46,12 +46,22 @@
     </div>
   </div>
   <div class="start" id="Start">Presione cualquier tecla para comenzar</div>
-  <div class="play"></div>
-  <span id="play"><i class="fa fa-circle-o"></i></span>
-  <a href="#" id="link-reset">
-    <span class="score" id="score">00</span>
-    <i class="fa fa-refresh"></i><br>
-  </a>
+  <div class="play-control">
+    <span id="play"><i class="fa fa-circle-o"></i></span>
+    <a href="#" id="link-reset">
+      <span class="score" id="score">00</span>
+      <i class="fa fa-refresh"></i><br>
+    </a>
+  </div>
+  <div id="gameOver">
+    <div class="form">
+      <h2>Game Over</h2>
+      <p>Tu puntaje fue de <span class="score" id="score-final">00</span></p>
+      Completa tu nombre para el histórico:
+      <input type="text" name="name" id="name" placeholder="Nombre" />
+      <input type="submit" name="name" id="name" value="Guardar" />
+    </div>
+  </div>
 </body>
 <script src="https://kit.fontawesome.com/3c00539263.js" crossorigin="anonymous"></script>
 <script src="index.js"></script>

@@ -77,3 +77,51 @@ body {
     boder-color: #fff;
   }
 }
+
+/* Custom Styles */
+.play-control {
+  position: absolute;
+  bottom: 50px;
+  background: #eee;
+  left: 0;
+  padding: 20px;
+  font-size: 32px;
+  color: #333;
+}
+
+.play-control a {
+  color: inherit;
+  text-decoration: none;
+}
+#gameOver {
+    position: absolute;
+    top: 0;
+    z-index: 999;
+    width: 100vw;
+    left: 0;
+    height: 100vh;
+    background: #000000bd;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+#gameOver .form {
+    background: #333;
+    text-align: center;
+    font-size: 24px;
+    border-radius: 10px;
+    padding: 25px;
+}
+
+#gameOver .form input {
+    width: 70%;
+    height: 40px;
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+#gameOver .form input.submit {
+    background: #333;
+    color: #999;
+}

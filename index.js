@@ -1,14 +1,10 @@
 //Desarrollo del test - Books & Books - Eugenio Jáuregui
-var reset = document.getElementById('link-reset'),
-    steps = document.getElementById('score'),
-    play = document.getElementById('play');
-
-
 function simonSay() {
     console.log('Juego iniciado');
     sessionStorage.setItem('playing', 'true');
     getKeyScreen = document.querySelectorAll('.key');
     steps = document.getElementById('score');
+    finalScore = document.getElementById('score-final');
     startMessage = document.getElementById('Start');
     startMessage.style.display = 'none';
 
@@ -95,9 +91,13 @@ function simonSay() {
             round.counter = 0;
             round.playerPattern = [];
             steps.innerHTML = '<i class="fa fa-exclamation-circle"></i>';
+            setTimeout(newRound, 1000);
+            gameOver = document.getElementById('gameOver');
+            gameOver.style.display = 'flex';
             setTimeout(function () {
                 steps.innerHTML = game.steps < 10 ? "0" + game.steps : game.steps;
-                showPattern();
+                finalScore.innerHTML = game.steps < 10 ? "0" + game.steps : game.steps;
+                // showPattern();
             }, 1500);
         }
     }
