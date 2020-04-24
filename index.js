@@ -5,6 +5,7 @@ function simonSay() {
     getKeyScreen = document.querySelectorAll('.key');
     steps = document.getElementById('score');
     finalScore = document.getElementById('score-final');
+    reset = document.getElementById('link-reset');
     startMessage = document.getElementById('Start');
     gameOver = document.getElementById('gameOver');
     nombre = document.getElementById('name');
@@ -52,13 +53,13 @@ function simonSay() {
 
     function showPattern() {
         game.playerTurn = false;
-        play.innerHTML = '<i class="fa fa-circle"></i>';
+        play.innerHTML = '<i class="fa fa-robot"></i>';
         for (var x = 0; x < round.patternLength; x++) {
             setTimeout(highligthKey.bind(null, round.pattern[x], 500), round.speed * x);
         }
         setTimeout(function () {
             game.playerTurn = true;
-            play.innerHTML = '<i class="fa fa-circle-o"></i>';
+            play.innerHTML = '<i class="fa fa-user-circle"></i>';
         }, round.speed * round.patternLength);
     }
 
@@ -95,7 +96,6 @@ function simonSay() {
             round.playerPattern = [];
             steps.innerHTML = '<i class="fa fa-exclamation-circle"></i>';
             setTimeout(function () {
-                sessionStorage.clear('playing');
                 steps.innerHTML = game.steps < 10 ? "0" + game.steps : game.steps;
                 finalScore.innerHTML = game.steps < 10 ? "0" + game.steps : game.steps;
                 gameOver.style.display = 'flex';
@@ -140,12 +140,18 @@ function simonSay() {
         }
         return keyName;
     }
+    
+    this.reset = function () {
+        steps.innerHTML = '00';
+        sessionStorage.clear('playing');
+        startMessage.style.display = 'block';
+        this.newGame;
+    }
     document.addEventListener('keydown', (event) => {
         keyPressed();
 
     });
-    submit.addEventListener('click', event => {
-        
+    this.saveData = function () {
         var today = new Date();
         var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
         var scores = [];
@@ -154,19 +160,21 @@ function simonSay() {
             puntaje: game.steps < 10 ? "0" + game.steps : game.steps,
             fecha: date
         }
-        let scores = [];
         if (localStorage.getItem('scores')) {
-            keyArray = JSON.parse(localStorage.getItem('scores'));
+            scores = JSON.parse(localStorage.getItem('scores'));
         }
         scores.push(user);
         localStorage.setItem('scores', JSON.stringify(scores));
         startMessage.style.display = 'block';
         gameOver.style.display = 'none';
+        steps.innerHTML = '00';
         setTimeout(function () {
             sessionStorage.clear('playing');
         }, 500);
-        
-    });
+
+    };
+    submit.onclick = this.saveData;
+    reset.onclick = this.reset;
 }
 
 document.addEventListener('keydown', (event) => {
