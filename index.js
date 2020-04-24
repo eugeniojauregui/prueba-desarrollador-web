@@ -185,6 +185,5 @@ document.addEventListener('keydown', (event) => {
     if (sessionStorage.getItem('playing') !== 'true') {
         var newGame = new simonSay();
         newGame.newGame();
-
     }
 });
