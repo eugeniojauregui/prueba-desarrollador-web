@@ -6,6 +6,9 @@ function simonSay() {
     steps = document.getElementById('score');
     finalScore = document.getElementById('score-final');
     startMessage = document.getElementById('Start');
+    gameOver = document.getElementById('gameOver');
+    nombre = document.getElementById('name');
+    submit = document.getElementById('submit');
     startMessage.style.display = 'none';
 
     function Game() {
@@ -59,7 +62,7 @@ function simonSay() {
         }, round.speed * round.patternLength);
     }
 
-    function buttonClick(button) {
+    function keyPressed(key) {
         if (game.playerTurn) {
             var keyIndex = pressKey();
             round.playerPattern.push(parseInt(keyIndex));
@@ -91,13 +94,11 @@ function simonSay() {
             round.counter = 0;
             round.playerPattern = [];
             steps.innerHTML = '<i class="fa fa-exclamation-circle"></i>';
-            setTimeout(newRound, 1000);
-            gameOver = document.getElementById('gameOver');
-            gameOver.style.display = 'flex';
             setTimeout(function () {
+                sessionStorage.clear('playing');
                 steps.innerHTML = game.steps < 10 ? "0" + game.steps : game.steps;
                 finalScore.innerHTML = game.steps < 10 ? "0" + game.steps : game.steps;
-                // showPattern();
+                gameOver.style.display = 'flex';
             }, 1500);
         }
     }
@@ -140,10 +141,32 @@ function simonSay() {
         return keyName;
     }
     document.addEventListener('keydown', (event) => {
-        buttonClick();
+        keyPressed();
 
     });
-
+    submit.addEventListener('click', event => {
+        
+        var today = new Date();
+        var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        var scores = [];
+        var user = {
+            nombre: document.querySelector('#name').value,
+            puntaje: game.steps < 10 ? "0" + game.steps : game.steps,
+            fecha: date
+        }
+        let scores = [];
+        if (localStorage.getItem('scores')) {
+            keyArray = JSON.parse(localStorage.getItem('scores'));
+        }
+        scores.push(user);
+        localStorage.setItem('scores', JSON.stringify(scores));
+        startMessage.style.display = 'block';
+        gameOver.style.display = 'none';
+        setTimeout(function () {
+            sessionStorage.clear('playing');
+        }, 500);
+        
+    });
 }
 
 document.addEventListener('keydown', (event) => {
