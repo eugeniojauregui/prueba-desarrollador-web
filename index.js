@@ -12,18 +12,20 @@ function simonSay() {
     submit = document.getElementById('submit');
     startMessage.style.display = 'none';
 
+
+    //Game initial settings
     function Game() {
         this.playerTurn = false;
         this.pattern = [];
         this.steps = 1;
     }
-
+    //Start new game
     this.newGame = function () {
         game = new Game();
         steps.innerHTML = "01";
         setTimeout(newRound, 500);
     }
-
+    //Random key sequence generator
     function Round() {
         let key = [];
         for (let index = 0; index < getKeyScreen.length; index++) {
@@ -44,13 +46,13 @@ function simonSay() {
         this.counter = 0;
         this.speed = 1200 - this.patternLength * 20;
     }
-
+    //Game rounds
     function newRound() {
         round = new Round();
         showPattern();
         console.log(round.pattern);
     }
-
+    //Game turn manager
     function showPattern() {
         game.playerTurn = false;
         play.innerHTML = '<i class="fa fa-robot"></i>';
@@ -62,7 +64,7 @@ function simonSay() {
             play.innerHTML = '<i class="fa fa-user-circle"></i>';
         }, round.speed * round.patternLength);
     }
-
+    //Trigger higlight & register sequence
     function keyPressed(key) {
         if (game.playerTurn) {
             var keyIndex = pressKey();
@@ -71,7 +73,7 @@ function simonSay() {
             check();
         }
     }
-
+    //Check game evolution
     function check() {
         if (parseInt(round.playerPattern[round.counter]) === parseInt(round.pattern[round.counter])) {
             round.counter++;
@@ -102,7 +104,7 @@ function simonSay() {
             }, 1500);
         }
     }
-
+    //Ramdom key highlight
     function highligthKey(keyElement) {
         for (let index = 0; index < getKeyScreen.length; index++) {
             const element = getKeyScreen[index];
@@ -115,7 +117,7 @@ function simonSay() {
             }
         }
     }
-
+    //Functions when user press keys
     function pressKey() {
         const keyName = event.keyCode;
         for (let index = 0; index < getKeyScreen.length; index++) {
@@ -140,17 +142,19 @@ function simonSay() {
         }
         return keyName;
     }
-    
+    //Game reset
     this.reset = function () {
         steps.innerHTML = '00';
         sessionStorage.clear('playing');
         startMessage.style.display = 'block';
         this.newGame;
     }
+    //Key detection
     document.addEventListener('keydown', (event) => {
         keyPressed();
 
     });
+    //Save data in localStorage
     this.saveData = function () {
         var today = new Date();
         var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
@@ -176,7 +180,7 @@ function simonSay() {
     submit.onclick = this.saveData;
     reset.onclick = this.reset;
 }
-
+//Unblock to start game
 document.addEventListener('keydown', (event) => {
     if (sessionStorage.getItem('playing') !== 'true') {
         var newGame = new simonSay();
